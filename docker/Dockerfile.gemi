@@ -3,4 +3,3 @@ FROM ghcr.io/berriai/litellm:main-latest
 RUN pip install Pillow
 RUN pip install 'litellm[proxy]'
 
-# CMD ["/bin/bash"]

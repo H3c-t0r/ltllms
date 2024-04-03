@@ -24,6 +24,12 @@
     </a>
 </h4>
 
+<div align="center">
+
+ | [日本語](docs/README_JP.md) | [English](README.md) |
+
+</div>
+
 LiteLLM manages:
 
 - Translate inputs to provider's `completion`, `embedding`, and `image_generation` endpoints

@@ -557,6 +557,8 @@ models_by_provider: dict = {
     "watsonx": watsonx_models,
 }
 
+provider_by_model = {}  # This will initialized by get_provider_from_model()
+
 # mapping for those models which have larger equivalents
 longer_context_model_fallback_dict: dict = {
     # openai chat completion models

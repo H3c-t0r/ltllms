@@ -1349,7 +1349,7 @@ def completion(
                 )
                 return response
             response = model_response
-        elif custom_llm_provider == "cohere":
+        elif custom_llm_provider == "cohere_text":
             cohere_key = (
                 api_key
                 or litellm.cohere_key
@@ -1389,7 +1389,7 @@ def completion(
                 )
                 return response
             response = model_response
-        elif custom_llm_provider == "cohere_chat":
+        elif custom_llm_provider == "cohere" or custom_llm_provider == "cohere_chat":
             cohere_key = (
                 api_key
                 or litellm.cohere_key

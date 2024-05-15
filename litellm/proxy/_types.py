@@ -908,6 +908,12 @@ class LiteLLM_Config(LiteLLMBase):
     param_value: Dict
 
 
+class LiteLLM_UserSpend(LiteLLMBase):
+    model: str
+    spend: float
+    prompt_tokens: int
+    completion_tokens: int
+
 class LiteLLM_UserTable(LiteLLMBase):
     user_id: str
     max_budget: Optional[float]
@@ -918,6 +924,7 @@ class LiteLLM_UserTable(LiteLLMBase):
     models: list = []
     tpm_limit: Optional[int] = None
     rpm_limit: Optional[int] = None
+    token_usage: Optional[list[LiteLLM_UserSpend]] = None
 
     @model_validator(mode="before")
     def set_model_info(cls, values):
@@ -983,3 +990,4 @@ class LiteLLM_ErrorLogs(LiteLLMBase):
 
 class LiteLLM_SpendLogs_ResponseObject(LiteLLMBase):
     response: Optional[List[Union[LiteLLM_SpendLogs, Any]]] = None
+

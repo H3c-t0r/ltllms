@@ -42,6 +42,8 @@ class GeminiConfig:
     - `top_p` (float): Optional. The maximum cumulative probability of tokens to consider when sampling.
 
     - `top_k` (int): Optional. The maximum number of tokens to consider when sampling.
+
+    - `response_mime_type`: The MIME type of the response. The default value is 'text/plain'.
     """
 
     candidate_count: Optional[int] = None
@@ -50,6 +52,7 @@ class GeminiConfig:
     temperature: Optional[float] = None
     top_p: Optional[float] = None
     top_k: Optional[int] = None
+    response_mime_type: Optional[str] = None
 
     def __init__(
         self,
@@ -59,6 +62,7 @@ class GeminiConfig:
         temperature: Optional[float] = None,
         top_p: Optional[float] = None,
         top_k: Optional[int] = None,
+        response_mime_type: Optional[str] = None,
     ) -> None:
         locals_ = locals()
         for key, value in locals_.items():

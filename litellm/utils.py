@@ -2634,6 +2634,8 @@ def get_optional_params(
                 optional_params["stop_sequences"] = stop
         if max_tokens is not None:
             optional_params["max_output_tokens"] = max_tokens
+        if response_format is not None and response_format["type"] == "json_object":
+            optional_params["response_mime_type"] = "application/json"
     elif custom_llm_provider == "vertex_ai" and (
         model in litellm.vertex_chat_models
         or model in litellm.vertex_code_chat_models
@@ -3670,7 +3672,7 @@ def get_supported_openai_params(
         elif request_type == "embeddings":
             return litellm.DatabricksEmbeddingConfig().get_supported_openai_params()
     elif custom_llm_provider == "palm" or custom_llm_provider == "gemini":
-        return ["temperature", "top_p", "stream", "n", "stop", "max_tokens"]
+        return ["temperature", "top_p", "stream", "n", "stop", "max_tokens", "response_format"]
     elif custom_llm_provider == "vertex_ai":
         if request_type == "chat_completion":
             return litellm.VertexAIConfig().get_supported_openai_params()

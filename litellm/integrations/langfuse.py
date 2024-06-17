@@ -155,34 +155,35 @@ class LangFuseLogger:
                         pass
 
             # end of processing langfuse ########################
+            
+            # Set default input and outputs
+            input = prompt
+            output = response_obj
+
             if (
                 level == "ERROR"
                 and status_message is not None
                 and isinstance(status_message, str)
             ):
-                input = prompt
                 output = status_message
             elif response_obj is not None and (
                 kwargs.get("call_type", None) == "embedding"
                 or isinstance(response_obj, litellm.EmbeddingResponse)
             ):
-                input = prompt
                 output = response_obj["data"]
             elif response_obj is not None and isinstance(
                 response_obj, litellm.ModelResponse
             ):
-                input = prompt
                 output = response_obj["choices"][0]["message"].json()
             elif response_obj is not None and isinstance(
                 response_obj, litellm.TextCompletionResponse
             ):
-                input = prompt
                 output = response_obj.choices[0].text
             elif response_obj is not None and isinstance(
                 response_obj, litellm.ImageResponse
             ):
-                input = prompt
                 output = response_obj["data"]
+
             print_verbose(f"OUTPUT IN LANGFUSE: {output}; original: {response_obj}")
             trace_id = None
             generation_id = None
@@ -490,12 +491,15 @@ class LangFuseLogger:
             usage = None
             if response_obj is not None and response_obj.get("id", None) is not None:
                 generation_id = litellm.utils.get_logging_id(start_time, response_obj)
+
                 usage = {
                     "prompt_tokens": response_obj["usage"]["prompt_tokens"],
                     "completion_tokens": response_obj["usage"]["completion_tokens"],
                     "total_cost": cost if supports_costs else None,
                 }
+
             generation_name = clean_metadata.pop("generation_name", None)
+
             if generation_name is None:
                 # if `generation_name` is None, use sensible default values
                 # If using litellm proxy user `key_alias` if not None
